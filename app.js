@@ -8,18 +8,36 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 const fileupload = require("express-fileupload");
-const coookieparser = require("cookie-parser");
-app.use(express.json());
-app.use(coookieparser());
-app.use(fileupload());
 const cors = require("cors");
 const corsOptions = {
-  origin: "*",
+  origin: "https://vasl-brand.web.app/",
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
+const coookieparser = require("cookie-parser");
+app.use(express.json());
+app.use(coookieparser());
+const session = require('express-session');
+const sessionConfig = {
+  secret: 'MYSECRET',
+  name: 'appName',
+  resave: false,
+  saveUninitialized: false,
+  cookie : {
+    sameSite: 'none', // THIS is the config you are looing for.
+  }
+};
+
+if (process.env.NODE_ENV === 'PRODUCTION') {
+  app.set('trust proxy', 1); // trust first proxy
+  sessionConfig.cookie.secure = true; // serve secure cookies
+}
+
+app.use(session(sessionConfig));
+app.use(fileupload());
+
 if (process.env.NODE_ENV !== "PRODUCTION") {
 
 require('dotenv').config({ path: path.resolve(__dirname, './config/config.env') })
