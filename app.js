@@ -21,8 +21,7 @@ app.use(express.json());
 app.use(coookieparser());
 const session = require('express-session');
 const sessionConfig = {
-  secret: 'MYSECRET',
-  name: 'appName',
+
   resave: false,
   saveUninitialized: false,
   cookie : {
