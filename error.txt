@@ -1,0 +1,33 @@
+     
+                                          Error->1
+
+//capturestacktrack ->ye hum ny procut not foud k liye bnyaha k line kum ho jye 1 class constructor bna k constructor mein smessage aya or statuscode
+//or dosri file bnae middleware en jhamessage or status code defie kiya
+
+                                          Error->2
+
+async error bnya ha jaha try catch use kiya commonor sb mein wo function add kr diya
+
+
+                                          Error->3
+
+
+  //(unhandle promise rejection) error means mongodb ki string glt dy di  isy unhandle promise kehty or catch ethod raise kr diya
+
+
+
+                                           Error->4
+
+  // (uncaught error) kehty jo variable declre naw ho orerror a jye os liye hota
+
+
+
+                                           Error->5
+    Cast Error                                        
+    //wrong mongodb id cast error kehty
+    //cast error
+     // Wrong Mongodb Id error jo kum digit ki id do
+
+
+  
+
