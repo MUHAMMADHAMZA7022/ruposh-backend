@@ -7,7 +7,26 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json());
 const fileupload = require("express-fileupload");
+app.use(fileupload());
+const coookieparser = require("cookie-parser");
+const session = require('express-session');
+app.use(coookieparser());
+app.set("trust proxy",1);
+app.use(session({
+  name:"hamza",
+  secret:process.env.JWT_SECRET,
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+    path:"/",
+    secure:true,
+    httpOnly:true,
+    sameSite:'none',
+  }
+
+}))
 const cors = require("cors");
 const corsOptions = {
   origin: "https://vasl-brand.web.app/",
@@ -16,31 +35,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-const coookieparser = require("cookie-parser");
-app.use(express.json());
-app.use(coookieparser());
-const session = require('express-session');
-const sessionConfig = {
-
-  resave: false,
-  saveUninitialized: false,
-  cookie : {
-    sameSite: 'none', // THIS is the config you are looing for.
-  }
-};
-
-if (process.env.NODE_ENV === 'PRODUCTION') {
-  app.set('trust proxy', 1); // trust first proxy
-  sessionConfig.cookie.secure = true; // serve secure cookies
-}
-
-app.use(session(sessionConfig));
-app.use(fileupload());
 
 if (process.env.NODE_ENV !== "PRODUCTION") {
-
 require('dotenv').config({ path: path.resolve(__dirname, './config/config.env') })
-  }
+}
 app.get("/",(req,res)=>{
   res.send("Hello Backend")
 })
